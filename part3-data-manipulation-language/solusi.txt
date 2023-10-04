@@ -3,56 +3,189 @@ RELEASE 1:
 1) Insert
     1.a) Insert 3 product type.
 
+        select * from product_type;
+
+        insert into product_type (kategori) values 
+            ('Perawatan_Wajah'),('Perawatan_Tubuh'),('Perawatan_Rambut');
+
+
     1.b) Insert 2 product dengan product type id = 1
+
+        select * from merk;
+        insert into merk (nama) values 
+            ('Wardah'),('Emina'),('Ponds');
+
+        select * from product;
+
+        insert into product (id_product_type, id_merk, nama, stok, harga) values 
+            (1, 1, 'Wardah Renew You serum', 1022, 77000),
+            (1, 2, 'Ms. Piple Acne Face Toner', 237, 49900);
+
 
     1.c) Insert 3 product dengan product type id = 2
 
+        insert into product (id_product_type, id_merk, nama, stok, harga) values 
+            (2, 1, 'Body Wash Lightening', 321, 35000), 
+            (2, 2, 'Body Scrub Healthy Glow', 119, 42000),
+            (2, 2, 'Lotion SPF50 pa++', 2002, 62000);
+
     1.d) Insert 3 product dengan product type id = 3
+
+        insert into product (id_product_type, id_merk, nama, stok, harga) values 
+            (3, 2, 'Hair Conditioner', 709, 32500), 
+            (3, 1, 'Shampoo anti oil', 823, 31000),
+            (3, 3, 'Vitamin Rambut 20EA', 1456, 26000);
 
     1.e) Insert product description pada setiap product.
 
+        insert into product_description (Deskripsi_product) values
+        ('Membantu menunda penuaan dini pada kulit'),
+        ('Efektif untuk memperbaiki tekstur kulit untuk semua jenis kulit'),
+        ('Membantu kulit tampak lebih cerah dan sensasi wangi parfum'),
+        ('Membersihkan sel kulit mati sekaligus melembabkan kulit'),
+        ('Melindungi kult dari efek buruk sinar matahari'),
+        ('Menghidrasi kulit rambut sehingga membantu menjaga kelembapan'),
+        ('Mengurangi minyak berlebih pada kulit rambut'),
+        ('Menghilangkan kusut dan membuat rambut lebih berkilau');
+        
+        select * from product;
+        insert into product values (1) on conflict (id) do update set id_product_desc = 1;	
+        insert into product values (2) on conflict (id) do update set id_product_desc = 2;	
+        insert into product values (3) on conflict (id) do update set id_product_desc = 3;	
+        insert into product values (4) on conflict (id) do update set id_product_desc = 4;	
+        insert into product values (5) on conflict (id) do update set id_product_desc = 5;	
+        insert into product values (6) on conflict (id) do update set id_product_desc = 6;	
+        insert into product values (7) on conflict (id) do update set id_product_desc = 7;	
+        insert into product values (8) on conflict (id) do update set id_product_desc = 8;
+
     1.f) Insert 3 payment methods.
+
+        select * from payment_method;
+
+        insert into payment_method(nama) values ('Kartu Kredit'), ('Transfer Bank'), ('Bayar Tunai');
 
     1.g) Insert 5 user pada tabel user.
 
+        select * from pembeli;
+        insert into pembeli (nama, alamat, tanggal_lahir, status_gender, created_at, update_at) values
+            ( 'Nurul Shofia', 'Jl. Panglima Sudirman No.5', '1996-05-02', 'P', '2023-09-03 10:08:22+07', '2023-09-10 16:11:32+07'),
+            ( 'Yohana Lola', 'Jl. Kauman 1A No.41', '1999-11-30', 'P', '2023-09-03 16:20:02+07', '2023-09-11 21:08:13+07'),
+            ( 'Fikri nur ilmi', 'Jl. Kuningan Blok E No. 12', '1997-10-10', 'L', '2023-09-10 00:08:12+07', '2023-09-10 18:11:02+07'),
+            ( 'Elsa Firmaniar', 'Jl. Barito 3 No. 51', '2000-02-02', 'P', '2023-09-09 00:31:14+07', '2023-09-10 10:32:01+07' ),
+            ( 'Achmad Farchan', 'Jl. Kamboja No. 114', '1999-06-07', 'L', '2023-09-07 22:23:21+07', '2023-09-10 12:23:11+07');
+
     1.h) Insert 3 transaksi di masing-masing user (min 3 user). (soal berlanjut ke soal 1.j)
+
+        select * from transaksi;
+
+        insert into transaksi (id_payment_method, id_pembeli, tanggal, paid_amount, status) values
+            (2, 2, '2023-09-07 09:10:22+07', 154000, 'Success'),
+            (3, 4, '2023-09-10 00:08:00+07', 243900, 'Success'),
+            (1, 5, '2023-09-11 11:08:22+07', 199500, 'Pending');
 
     1.i) Insert 3 product di masing-masing transaksi.
 
+        select * from transaction_detail;
+
+        insert into transaction_detail(id_product, id_transaksi, qty, harga, sub_total) values
+            (1,	1,	1,	77000,	77000),
+            (3,	1,	1,	35000,	35000),
+            (4,	1,	1,	42000,	42000),
+            (3,	2,	2,	35000,	70000),
+            (2,	2,	1,	49900,	49900),
+            (5,	2,	2,	62000,	124000),
+            (3,	3,	3,	35000,	105000),
+            (7,	3,	2,	31000,	62000),
+            (6,	3,	1,	32500,	32500);
+
+
 2) Select
     2.a) Tampilkan nama user / pelanggan dengan gender Laki-laki / M.
-
+        
+        select * from pembeli where status_gender like 'L';
+    
     2.b) Tampilkan product dengan id = 3.
+
+        select * from product where id =3;
 
     2.c) Tampilkan data pelanggan yang created_at dalam range 7 hari kebelakang dan mempunyai nama mengandung kata ‘a’.
 
+        select * from pembeli where nama like '%a%' and created_at > CURRENT_DATE - INTERVAL '7 days' ;
+
     2.d) Hitung jumlah user / pelanggan dengan status gender Perempuan.
+
+        select status_gender,count(1) from pembeli where status_gender like 'P' group by status_gender;
 
     2.e) Tampilkan data pelanggan dengan urutan sesuai nama abjad
 
+        select * from pembeli order by nama;
+
     2.f) Tampilkan 5 data transaksi dengan product id = 3
+
+        select * from transaction_detail where id_product = 3;
 
 3. Update
     3.a) Ubah data product id 1 dengan nama ‘product dummy’.
 
+        update product set nama = 'product dummy' where id=1;
+
     3.b) Update qty = 3 pada transaction detail dengan product id 1.
+
+        update transaction_detail set qty = 3 where id_product=1;
 
 4. Delete
     4.a) Delete data pada tabel product dengan id 1.
 
+        delete from product where id = 1;
+
     4.b) Delete pada tabel product dengan product-type id 1.
+
+        delete from transaction_detail where id_product between 1 and 2;
+        delete from product where id_product_type = 1;
+
 
 
 RELEASE 2: Join, Union, Sub-query, Function
 
 1. Gabungkan data transaksi dari user id 1 dan user id 2.
 
+    select * from transaksi where id = 1
+    union
+    select * from transaksi where id = 2;
+
 2. Tampilkan jumlah harga transaksi user id 1.
+
+    select pembeli.nama, sum(sub_total) from transaction_detail 
+    join transaksi on transaction_detail.id_transaksi = transaksi.id
+    join pembeli on transaksi.id_pembeli = pembeli.id
+    where id_pembeli = 1
+    group by pembeli.id;
 
 3. Tampilkan total transaksi dengan product type 2.
 
+    select product_type.id, count(1)
+    from transaction_detail 
+    join product  on transaction_detail.id_product = product.id
+    join product_type on product.id_product_type = product_type.id
+    where product_type.id = 2
+    group by product_type.id;
+
 4. Tampilkan semua field table product dan field name table product type yang saling berhubungan.
+
+    select 
+    product.id, id_product_desc, id_product_type,
+    id_merk,nama, stok, harga, kategori from product 
+    join product_type on product.id_product_type = product_type.id;
 
 5. Tampilkan semua field table transaction, field name table product dan field name table user.
 
+    select pembeli.nama, product.nama, transaksi.id,id_payment_method,
+    id_pembeli, tanggal, paid_amount,status
+    from transaction_detail 
+    join transaksi on transaction_detail.id_transaksi = transaksi.id
+    join product on transaction_detail.id_product = product.id
+    join pembeli on transaksi.id_pembeli = pembeli.id;
+
 6. Tampilkan data products yang tidak pernah ada di tabel transaction_details dengan sub-query.
+
+    select * from product where id not in (select id_product from transaction_detail);
